@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Page accueil Challenges{% endblock %}
+{% block content %}
+
+	<div class="liste_vignettes">
+	{% for Challenge in profil.challenge_list.all %}
+ 
+		<div class="vignette" >
+			<a href="{% url "challenges.views.afficher_challenge" Challenge.id %}">
+			<table>
+				<tr><td class="titre_challenge_cel">
+					{{Challenge.name}}
+				</td></tr>
+				<tr><td><img class="vig_img" src="{{Challenge.photo.url}}"/></td></tr>
+				<tr><td class="objectif_challenge_cel">Objectif {{Challenge.goal}} {{Challenge.unite}} le {{Challenge.goal_date|date:"j/m/Y"}}</td></tr>
+			</table>
+			</a>
+		</div>
+
+	{% endfor %}
+	</div>
+{% endblock %}

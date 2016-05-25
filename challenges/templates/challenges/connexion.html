@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Page accueil Challenges{% endblock %}
+{% block nav %}{% endblock %}
+{% block content %}
+<style type="text/css">
+form
+{
+ background-color:#FFFFFF;
+ padding:10px;
+ width:200px;
+border-width:1px;
+border-style:ridge;
+border-color:#708090;
+ border-radius:5px;
+margin-left: auto;
+    margin-right: auto;
+}
+
+#authForm
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 600px;
+}
+</style>
+
+ 		<div id="authForm">
+			<form action="{% url "challenges.views.connexion" %}" method="post" >
+			<h4>Time to challenge!</h4>
+
+	{% if error%}
+	<p><strong>Utilisateur ou mot de passe inconnu.</strong></p>
+	{% endif %}
+ 
+
+			    {% csrf_token %}
+			    {{ form.as_p }}
+			    <input type="submit" value="Se connecter" />
+			</form>
+		</div>
+
+{% endblock %}
+
+

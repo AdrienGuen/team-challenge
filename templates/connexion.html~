@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Page accueil Challenges{% endblock %}
+{% block content %}
+ 		<div id="authForm">
+    		   <div class="element">
+			<form action="{% url "views.connexion" %}" method="post" >
+			<h4>Bienvenue sur Team Challenge!</h4>
+
+	{% if error%}
+	<p><strong>Utilisateur ou mot de passe inconnu.</strong></p>
+	{% endif %}
+ 
+
+			    {% csrf_token %}
+			    {{ form.as_p }}
+			    <input type="submit" value="Submit" />
+			</form>
+		   </div>
+		</div>
+
+{% endblock %}
+
+

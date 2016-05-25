@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}Challenge page{% endblock %}
+{% block content %}
+	<style type="text/css">
+
+body {
+	 margin-top: 20px; 
+}
+.page-header{
+text-align:center;
+    background-color: white;
+
+}
+	.panel-heading{
+	text-align:center;
+	}
+	.panel{
+	margin-top:30px;
+	padding: 10px 5px 0px 5px;
+	}
+
+
+form
+{
+ background-color:#FFFFFF;
+ padding:10px;
+ width:100%;
+border-width:1px;
+border-style:ridge;
+border-color:#708090;
+ border-radius:5px;
+margin-left: auto;
+    margin-right: auto;
+}
+
+
+	</style>
+
+
+ 	{% load chartit %}
+        {{ cht|load_charts:"cht" }}
+
+
+      <header class="row page-header">
+        <div class="col-md-12">
+		<h1>{{ challenge.name }}</h1>
+	</div>
+      </header>
+
+   <div class="row">
+
+	<div class="col-lg-3">
+
+	<aside class="col-lg-12">
+	 <div class="row">	    
+		{% if member%}
+		<div class="row">
+			<div id="addRunForm">
+	    		   <div class="element">
+				<form action="{% url "challenges.views.afficher_challenge" challenge.id %}" method="post" >
+
+				<h4>Ajouter une performance</h4>
+
+					{% if error%}
+					<p><strong>Erreur</strong></p>
+					{% endif %}
+				    {% csrf_token %}
+				    {{ form.as_p }}
+				    <input type="submit" value="Ajouter" />
+				</form>
+			   </div>
+			</div>
+		</div>
+	  </div>
+
+
+
+
+		   <div class="row">
+			<div class="panel panel-info">
+			  	<div class="panel-heading">
+		   		        <h3 class="panel-title">L'équipe</h3>
+				</div>
+		    			<ul class="list-group">
+					{% for User in challenge.team.all %}
+					<li class="list-group-item ">{{ User.username }}</li>
+					{% endfor %}
+					</ul>
+			</div>
+				
+			{% else%}
+					<div class="row">
+<a href="{% url "challenges.views.rejoindre" challenge.id %}" class="btn btn-success"><span class="glyphicon glyphicon-thumbs-up"></span> Rejoindre l'équipe!</a>
+					</div>	
+
+   <div class="row">
+			<div class="panel panel-info">
+			  	<div class="panel-heading">
+		   		        <h3 class="panel-title">L'équipe</h3>
+				</div>
+		    			<ul class="list-group">
+					{% for User in challenge.team.all %}
+					<li class="list-group-item ">{{ User.username }}</li>
+					{% endfor %}
+					</ul>
+			</div>		
+			{% endif %}
+		   </div>
+
+		</aside>
+	</div>
+
+
+
+		<div class="col-lg-9">
+			<div class="panel panel-info">
+			<div id="cht"></div>
+			</div>
+		</div>
+	
+    </div>
+
+        </body>
+
+	<footer>
+	{% if member%}
+	<div class="row">
+			<div class="col-lg-2">
+			<a href="{% url "challenges.views.quitter_challenge" challenge.id %}" class="btn btn-warning"><span class="glyphicon glyphicon-remove-circle"></span>Abandonner le challenge</a>	
+			</div>	
+	</div>	
+	{% endif %}
+	</footer>
+
+	
+{% endblock %}
+
+
+
+

@@ -1,0 +1,35 @@
+#-*- coding: utf-8 -*-
+
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate,login
+from forms import AuthForm
+from challenges import views as chal_views
+
+def connexion(request):
+    """ Home page """
+
+	 
+    """error=False
+    if request.method == 'POST':  # S'il s'agit d'une requête POST
+        form = AuthForm(request.POST)  # Nous reprenons les données
+
+        if form.is_valid(): # Nous vérifions que les données envoyées sont valides
+
+            # Ici nous pouvons traiter les données du formulaire
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+	    user=authenticate(username=username,password=password);
+	    if user:
+		login(request,user);
+	    	return redirect(challenges.home)
+	    else:
+		error=True
+
+
+
+    else: # Si ce n'est pas du POST, c'est probablement une requête GET
+        form = AuthForm()  # Nous créons un formulaire vide
+
+    return render(request, 'connexion.html',locals())"""
+    return redirect('challenges/home')
